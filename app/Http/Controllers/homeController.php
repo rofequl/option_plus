@@ -78,7 +78,7 @@ class homeController extends Controller
         $register->name = $request->name;
         $register->email = $request->email;
         $register->user_id = $time;
-        $register->password = Hash::make($request->password,);
+        $register->password = Hash::make($request->password);
         $register->save();
 
 

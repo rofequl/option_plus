@@ -26,6 +26,10 @@ Route::group(['middleware' => 'CheckLogin'], function () {
     Route::get('/','homeController@index')->name('/');
 
     Route::get('/category','ProductController@category')->name('category');
+
+    Route::get('/view-category','ProductController@ViewCategory');
+
+    Route::post('/add-category','ProductController@AddCategory');
 });
 
 

@@ -50,6 +50,4 @@ function imageIsLoaded(e) {
     $('#previewLogo').attr('src', e.target.result).css("display","block");
 }
 
-$(document).ready( function () {
-    $('.table').DataTable();
-});
+
