@@ -16,9 +16,15 @@
     <link rel="stylesheet" href="{{asset('styles/1.9966074a.chunk.css')}}">
     <link rel="stylesheet" href="{{asset('styles/main.ac60eb4c.chunk.css')}}">
     <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="{{asset('styles/shards-dashboards.1.1.0.css')}}">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="{{asset('vendor/modal/popModal.css')}}">
 
     <link rel="stylesheet" href="{{asset('styles/extras.1.1.0.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/util/util.css')}}">
+    <link rel="stylesheet" href="{{asset('custom/style.css')}}">
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
 </head>
@@ -42,11 +48,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<!-- jQuery Modal -->
+<script src="{{asset('vendor/modal/popModal.js')}}"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+<!-- jQuery Custom Scroller CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="{{asset('scripts/extras.1.1.0.min.js')}}"></script>
 <script src="{{asset('scripts/shards-dashboards.1.1.0.min.js')}}"></script>
 <script src="{{asset('scripts/1.c2333a40.chunk.js')}}"></script>
 <script src="{{asset('scripts/main.f1367185.chunk.js')}}"></script>
-<script src="{{asset('')}}scripts/app/app-blog-overview.1.1.0.js"></script>
+<script src="{{asset('scripts/app/app-blog-overview.1.1.0.js')}}"></script>
 <script src="{{asset('custom/script.js')}}"></script>
 
 </body>

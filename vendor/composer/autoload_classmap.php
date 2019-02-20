@@ -33,6 +33,8 @@ return array(
     'App\\User' => $baseDir . '/app/User.php',
     'App\\category' => $baseDir . '/app/category.php',
     'App\\company' => $baseDir . '/app/company.php',
+    'App\\item' => $baseDir . '/app/item.php',
+    'App\\subcategory' => $baseDir . '/app/subcategory.php',
     'BeyondCode\\DumpServer\\DumpServerCommand' => $vendorDir . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',
     'BeyondCode\\DumpServer\\DumpServerServiceProvider' => $vendorDir . '/beyondcode/laravel-dump-server/src/DumpServerServiceProvider.php',
     'BeyondCode\\DumpServer\\Dumper' => $vendorDir . '/beyondcode/laravel-dump-server/src/Dumper.php',
