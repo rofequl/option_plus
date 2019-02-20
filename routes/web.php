@@ -51,6 +51,8 @@ Route::group(['middleware' => 'CheckLogin'], function () {
     Route::get('/view-single-product','ProductController@ViewSingleProduct');
 
     Route::get('/delete-item','ProductController@DeleteItem');
+
+    Route::get('/view-edit-item','ProductController@ViewEditItem');
 });
 
 
