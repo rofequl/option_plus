@@ -53,6 +53,7 @@ Route::group(['middleware' => 'CheckLogin'], function () {
     Route::get('/view-product','ProductController@ViewProduct');
     Route::get('/view-single-product','ProductController@ViewSingleProduct');
     Route::get('/delete-item','ProductController@DeleteItem');
+	Route::get('/view-edit-item','ProductController@ViewEditItem');
 
     Route::get('/price-list','ProductController@PriceList')->name('PriceList');
     Route::get('/view-price-list','ProductController@ViewPriceList');
@@ -68,7 +69,7 @@ Route::group(['middleware' => 'CheckLogin'], function () {
 
     Route::get('/supplier/{data}','SupplierController@SupplierIndividual');
 
-});
+
 
 
 

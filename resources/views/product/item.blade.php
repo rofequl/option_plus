@@ -9,7 +9,7 @@
             <i class="fas fa-arrow-right"></i>
         </div>
         <div class="sidebar-header p-1 px-2">
-            <h3>New Item</h3>
+            <h3 id="InputHeader">New Item</h3>
         </div>
         <hr class="my-0">
 
@@ -64,7 +64,7 @@
                 </div>
 
             </div>
-            <div class="row border-top">
+            <div class="row border-top" id="InputButton">
                 <button type="submit" class="btn btn-primary w-75 mx-auto mt-4 addProduct">Save</button>
             </div>
         </form>
@@ -274,6 +274,45 @@
                         });
                     }
                 })
+            });
+
+            $(document).on('click', '.edit', function () {
+                $('.collapse').collapse('show');
+                let id = $(this).attr('id');
+                $.ajax({
+                    url: "{{ url('view-edit-item') }}",
+                    type: 'get',
+                    data: {id: id,},
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#sidebar').addClass('active');
+                        $('.overlay').addClass('active');
+                        $('.collapse.in').toggleClass('in');
+                        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+                        $('#InputHeader').html('Update Item');
+                        $('#previewImage').html('<img src="storage/product/'+data.pic+'" class="img-thumbnail h-100 mx-auto" id="previewLogo">');
+                        $('#CategoryId').val(data.category);
+                        $.ajax({
+                            url: "{{ url('subcategory-select') }}",
+                            type: 'post',
+                            data: {_token: CSRF_TOKEN, id: data.category},
+                            dataType: 'json',
+                            success: function (data) {
+                                $('#SubcategoryId').html('');
+                                data.forEach(function (element) {
+                                    $('#SubcategoryId').append($('<option>', {value: element.id, text: element.subcategory_name}));
+                                });
+                                $('.selectpicker').selectpicker('refresh');
+                            }
+                        });
+                        $('#SubcategoryId').val(data.subcategory);
+                        $('.selectpicker').selectpicker('refresh');
+                        $('#ItemName').val(data.name);
+                        $('#description').val(data.description);
+                        $('#Manufacturer').val(data.manufacturer);
+                        $('#previewImage').html('<button type="submit" class="btn btn-primary w-75 mx-auto mt-4 addProduct">Update</button>');
+                    }
+                });
             });
         });
     </script>

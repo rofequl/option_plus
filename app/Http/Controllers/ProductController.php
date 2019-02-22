@@ -192,13 +192,13 @@ class ProductController extends Controller
         $item = item::where('Company_id',Session('companyId'))->get();
 
         return DataTables::of($item)->addColumn('action', function ($item) {
-            return '<div class="d-table mx-auto btn-group-sm btn-group">
+            return '<div class="d-table mx-auto storage/product/btn-group-sm btn-group">
             <button type="button" id="' . $item->id . '" class="btn btn-white view"><i class="material-icons"></i></button>
             <button type="button" class="btn btn-white edit" id="' . $item->id . '"><i class="material-icons"></i></button>
             <button type="button" id="' . $item->id . '" class="btn btn-white delete"><i class="material-icons"></i></button>
             </div>';
         })->addColumn('image', function ($item) {
-            return '<img src="storage/product/' . $item->item_pic . '" class="img-thumbnail" width="70px">';
+            return '<img src="' . $item->item_pic . '" class="img-thumbnail" width="70px">';
         })->addColumn('category', function ($item) {
             return category::where('id', $item->category_id)->pluck('category_name')->first();
         })->addColumn('subcategory', function ($item) {
@@ -229,6 +229,23 @@ class ProductController extends Controller
         if ($category->delete()) {
             echo "1";
         }
+    }
+	
+public function ViewEditItem(Request $request)
+    {
+        $item = item::find($request->id);
+        $output = array(
+            'subcategory' => $item->subcategory_id,
+            'category' => $item->category_id,
+            'name' => $item->item_name,
+            'pic' => $item->item_pic,
+            'description' => $item->description,
+            'manufacturer' => $item->manufacturer,
+            'status' => $item->status,
+            'created' => $item->created_at,
+            'id' => $item->id,
+        );
+        echo json_encode($output);
     }
 
     public function PriceList()
@@ -296,7 +313,7 @@ class ProductController extends Controller
         $insert->save();
         echo 1;
     }
-}
+
 
 
 
