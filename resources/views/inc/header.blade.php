@@ -6,7 +6,7 @@
                 <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-0 p-0">
                     <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
                         <div class="d-table m-auto">
-                            <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="images/shards-dashboards-logo.svg" alt="Shards Dashboard">
+                            <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="{{asset('images/shards-dashboards-logo.svg')}}" alt="Shards Dashboard">
                             <span class="d-none d-md-inline ml-1">Shards Dashboard</span>
                         </div>
                     </a>
@@ -22,7 +22,7 @@
                             <i class="fas fa-search"></i>
                         </div>
                     </div>
-                    <input class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search"> </div>
+                    <input class="navbar-search form-control" type="text" placeholder="Tracking for something..." aria-label="Search"> </div>
             </form>
             <ul class="navbar-nav border-left flex-row ">
                 <li class="nav-item border-right dropdown N-menubar">
@@ -121,7 +121,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        <img class="user-avatar rounded-circle mr-2" src="images/avatars/0.jpg" alt="User Avatar">
+                        <img class="user-avatar rounded-circle mr-2" src="{{asset('images/avatars/0.jpg')}}" alt="User Avatar">
                         <span class="d-none d-md-inline-block">Sierra Brooks</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-small">
@@ -136,7 +136,7 @@
                         <a class="dropdown-item" href="add-new-post.html">
                             <i class="material-icons">note_add</i> Role Permission</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="#">
+                        <a class="dropdown-item text-danger" href="{{route('logout')}}">
                             <i class="material-icons text-danger">&#xE879;</i> Logout </a>
                     </div>
                 </li>

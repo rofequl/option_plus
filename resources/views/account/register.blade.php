@@ -6,7 +6,7 @@
             <div class="card-header border-bottom">
                 <h6 class="m-0">Create admin account and ready this app prepare for work</h6>
             </div>
-            <form method="post" class="needs-validation" action="{{url('firstRegister')}}"
+            <form method="post" class="needs-validation" action="{{url('Register')}}"
                   enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="card-body">
@@ -86,14 +86,36 @@
                                          id="previewLogo">
                                 </div>
                             </div>
+                            <div class="form-inline my-3">
+                                <label for="inputPassword" class="col-form-label mr-2">Select Plan: </label>
+                                <div class="">
+                                    <select class="form-control" name="plan">
+                                        <option value="1">Free</option>
+                                        <option value="2">Premium</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3 d-table">
+                                <div class="custom-control custom-checkbox mb-1">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                    <label class="custom-control-label" for="customCheck2">I agree with the <a href="#">Terms &amp; Conditions</a>.</label>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>
                 <div class="card-footer border-top py-3">
-                    <button class="ml-auto d-table mr-3 btn btn-accent btn-sm">Submit Form</button>
+                    <button type="submit" class="ml-auto d-table mr-3 btn btn-accent btn-sm submit">Submit Form</button>
                 </div>
             </form>
         </div>
     </div>
+
+    <script>
+        $(document).on('click', '.submit', function () {
+
+        });
+    </script>
+
 
 @endsection

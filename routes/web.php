@@ -15,17 +15,23 @@ Route::get('/register','homeController@register');
 
 Route::get('/login','homeController@login')->name('login');
 
+Route::get('/logout','homeController@logout')->name('logout');
+
+Route::get('/register','homeController@register')->name('register');
+
 Route::post('/login','homeController@UserLogin');
 
 Route::get('/forget-password','homeController@forgetpassword')->name('forget-password');
 
-Route::post('/firstRegister','homeController@firstRegister');
+Route::post('/Register','homeController@UserRegister');
 
 Route::group(['middleware' => 'CheckLogin'], function () {
 
     Route::get('/','homeController@index')->name('/');
 
     Route::post('/subcategory-select','ProductController@SubcategorySelect');
+
+    Route::get('/tracking','TrackingController@Tracking');
 
 
     Route::get('/category','ProductController@category')->name('category');
@@ -43,14 +49,25 @@ Route::group(['middleware' => 'CheckLogin'], function () {
     Route::post('/update-subcategory','ProductController@UpdateSubcategory');
 
     Route::get('/product','ProductController@product')->name('product');
-
     Route::post('/add-product','ProductController@AddProduct');
-
     Route::get('/view-product','ProductController@ViewProduct');
-
     Route::get('/view-single-product','ProductController@ViewSingleProduct');
-
     Route::get('/delete-item','ProductController@DeleteItem');
+
+    Route::get('/price-list','ProductController@PriceList')->name('PriceList');
+    Route::get('/view-price-list','ProductController@ViewPriceList');
+    Route::post('/add-price-list','ProductController@AddPriceList');
+    Route::get('/delete-price-list','ProductController@DeletePriceList');
+    Route::get('/view-edit-price-list','ProductController@ViewEditPriceList');
+    Route::post('/update-price-list','ProductController@UpdatePriceList');
+
+    Route::get('/supplier','SupplierController@Supplier')->name('supplier');
+    Route::post('/add-supplier','SupplierController@AddSupplier');
+    Route::get('/view-supplier','SupplierController@ViewSupplier');
+    Route::get('/delete-supplier','SupplierController@DeleteSupplier');
+
+    Route::get('/supplier/{data}','SupplierController@SupplierIndividual');
+
 });
 
 

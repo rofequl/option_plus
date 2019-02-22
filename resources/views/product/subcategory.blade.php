@@ -33,7 +33,7 @@
                                 <input type="text" class="form-control d-none" id="inputSubcategoryId">
                             </div>
                             <button type="submit" class="btn btn-primary mb-2 UpdateCategory">Update</button>
-                            <button type="button" class="btn btn-success mx-3 mb-2">Close</button>
+                            <button type="button" class="btn btn-success mx-3 mb-2 closer">Close</button>
                         </form>
                     </div>
                 </div>
@@ -91,6 +91,9 @@
 
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $(document).ready(function () {
+            $(document).on('click', '.closer', function () {
+                $('.collapse').collapse('hide');
+            });
             $('#AddSubcategory').click(function () {
                 let categoryId = $('#CategoryId').val(), subcategory = $('#subcategory').val();
                 if (categoryId != '' && subcategory != '') {

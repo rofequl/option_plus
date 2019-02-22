@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\item;
+use App\product_price;
 use App\subcategory;
 use DataTables;
 use App\category;
 use Illuminate\Http\Request;
 use Validator;
+use Session;
 
 class ProductController extends Controller
 {
+
     public function category()
     {
         return view('product.category');
@@ -18,7 +21,7 @@ class ProductController extends Controller
 
     public function ViewCategory()
     {
-        $category = category::select('id', 'category_name', 'created_at');
+        $category = category::where('Company_id',Session('companyId'))->select('id', 'category_name', 'created_at');
         return DataTables::of($category)->addColumn('action', function ($category) {
             return '<div class="d-table mx-auto btn-group-sm btn-group">
             <button type="button" class="btn btn-white edit" id="' . $category->id . '"><i class="material-icons"></i></button>
@@ -29,14 +32,14 @@ class ProductController extends Controller
 
     public function AddCategory(Request $request)
     {
-        $data = array('category_name' => $request->category,);
 
-        $value = category::where('category_name', $request->category)->count();
+        $value = category::where('Company_id',Session('companyId'))->where('category_name', $request->category)->count();
         if ($value > 0) {
             echo 0;
         } else {
             $insert = new category;
             $insert->category_name = $request->category;
+            $insert->Company_id = Session('companyId');
             $insert->save();
             echo 1;
         }
@@ -70,19 +73,20 @@ class ProductController extends Controller
 
     public function subcategory()
     {
-        $category = category::all();
+        $category = category::where('Company_id',Session('companyId'))->get();
         return view('product.subcategory', compact('category'));
     }
 
     public function AddSubcategory(Request $request)
     {
-        $value = subcategory::where('subcategory_name', $request->subcategory)->count();
+        $value = subcategory::where('Company_id',Session('companyId'))->where('subcategory_name', $request->subcategory)->count();
         if ($value > 0) {
             echo 0;
         } else {
             $insert = new subcategory;
             $insert->category_id = $request->categoryId;
             $insert->subcategory_name = $request->subcategory;
+            $insert->Company_id = Session('companyId');
             $insert->save();
             echo 1;
         }
@@ -90,7 +94,7 @@ class ProductController extends Controller
 
     public function ViewSubcategory()
     {
-        $subcategory = subcategory::select('id', 'category_id', 'subcategory_name', 'created_at');
+        $subcategory = subcategory::where('Company_id',Session('companyId'))->select('id', 'category_id', 'subcategory_name', 'created_at');
 
         return DataTables::of($subcategory)->addColumn('action', function ($subcategory) {
             return '<div class="d-table mx-auto btn-group-sm btn-group">
@@ -132,13 +136,13 @@ class ProductController extends Controller
 
     public function SubcategorySelect(Request $request)
     {
-        $subcategory = subcategory::where('category_id', $request->id)->get();
+        $subcategory = subcategory::where('Company_id',Session('companyId'))->where('category_id', $request->id)->get();
         echo json_encode($subcategory);
     }
 
     public function product()
     {
-        $category = category::all();
+        $category = category::where('Company_id',Session('companyId'))->get();
         return view('product.item', compact('category'));
     }
 
@@ -168,6 +172,7 @@ class ProductController extends Controller
             $item->item_name = $request->ItemName;
             $item->description = $request->description;
             $item->manufacturer = $request->Manufacturer;
+            $item->Company_id = Session('companyId');
             $item->save();
             echo 1;
         } else {
@@ -184,7 +189,7 @@ class ProductController extends Controller
 
     public function ViewProduct()
     {
-        $item = item::all();
+        $item = item::where('Company_id',Session('companyId'))->get();
 
         return DataTables::of($item)->addColumn('action', function ($item) {
             return '<div class="d-table mx-auto btn-group-sm btn-group">
@@ -224,6 +229,72 @@ class ProductController extends Controller
         if ($category->delete()) {
             echo "1";
         }
+    }
+
+    public function PriceList()
+    {
+        $item = item::where('Company_id',Session('companyId'))->get();
+        return view('product.price_list',compact('item'));
+    }
+
+    public function AddPriceList(Request $request)
+    {
+        $value = product_price::where('product_id', $request->itemId)->count();
+        if ($value > 0) {
+            $insert = product_price::where('product_id', $request->itemId)->first();
+            $insert->price = $request->price;
+            $insert->save();
+            echo 0;
+        } else {
+            $insert = new product_price;
+            $insert->product_id = $request->itemId;
+            $insert->price = $request->price;
+            $insert->Company_id = Session('companyId');
+            $insert->save();
+            echo 1;
+        }
+    }
+
+    public function ViewPriceList()
+    {
+        $price = product_price::where('Company_id',Session('companyId'))->select('id', 'product_id', 'price', 'created_at');
+
+        return DataTables::of($price)->addColumn('action', function ($price) {
+            return '<div class="d-table mx-auto btn-group-sm btn-group">
+            <button type="button" class="btn btn-white edit" id="' . $price->id . '"><i class="material-icons"></i></button>
+            <button type="button" id="' . $price->id . '" class="btn btn-white delete"><i class="material-icons"></i></button>
+            </div>';
+        })->addColumn('product', function ($price) {
+            return item::where('id', $price->product_id)->pluck('item_name')->first();
+        })->make(true);
+    }
+
+    public function DeletePriceList(Request $request)
+    {
+        $price = product_price::find($request->input('id'));
+        if ($price->delete()) {
+            echo "1";
+        }
+    }
+
+    public function ViewEditPriceList(Request $request)
+    {
+        $price = product_price::find($request->input('id'));
+        $output = array(
+            'product_id' => $price->product_id,
+            'price' => $price->price,
+            'id' => $price->id
+        );
+        echo json_encode($output);
+    }
+
+    public function UpdatePriceList(Request $request)
+    {
+        $insert = product_price::find($request->id);
+        $insert->product_id = $request->itemId;
+        $insert->price = $request->price;
+        $insert->save();
+        echo 1;
     }
 }
 

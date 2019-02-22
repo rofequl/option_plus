@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="{{asset('custom/style.css')}}">
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+    <script data-pace-options='{ "ajax": true }' src="{{asset('vendor/pace/pace.js')}}"></script>
+    <link href="{{asset('vendor/pace/themes/black/pace-theme-minimal.css')}}" rel="stylesheet" />
 </head>
 <body class="h-100">
 <div class="container-fluid">

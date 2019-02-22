@@ -4,7 +4,8 @@
     <div class="h-100 no-gutters row">
         <div class="auth-form mx-auto mt-3 col-md-5 col-lg-3">
             <div class="card">
-                <div class="card-body"><img class="auth-form__logo d-table mx-auto mb-3"
+                <div class="card-body">
+                    <img class="auth-form__logo d-table mx-auto mb-3"
                                             src="images/shards-dashboards-logo.svg"
                                             alt="Shards Dashboards - Login Template"><h5
                             class="auth-form__title text-center mb-4">Access Your Account</h5>
@@ -45,9 +46,18 @@
                         </button>
                     </form>
                 </div>
+                <div class="card-footer border-top">
+                    <ul class="auth-form__social-icons d-table mx-auto">
+                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-github"></i></a></li>
+                        <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                    </ul>
+                </div>
             </div>
             <div class="auth-form__meta d-flex mt-4">
                 <a href="{{route('forget-password')}}">Forgot your password?</a>
+                <a class="ml-auto" href="{{route('register')}}">Create new account?</a>
             </div>
         </div>
     </div>

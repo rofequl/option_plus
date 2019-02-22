@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Session;
+use Carbon\Carbon;
 
 //Index page, Register page, Login Page, Logout.
 
@@ -19,12 +20,12 @@ class homeController extends Controller
 
     public function login()
     {
-        $user = user::all()->count();
-        if($user > 0){
             return view('account.login');
-        }else{
-            return view('account.register');
-        }
+    }
+
+    public function register()
+    {
+        return view('account.register');
     }
 
     public function UserLogin(Request $request){
@@ -39,6 +40,7 @@ class homeController extends Controller
             if ($admin && Hash::check($request->password, $admin->password)) {
                 Session::put('email', $request->email);
                 Session::put('userId', $admin->user_id);
+                Session::put('companyId', $admin->Company_id);
                 return redirect('/');
             } else {
                 $request->session()->flash('message', 'password not match');
@@ -57,7 +59,7 @@ class homeController extends Controller
     }
 
 
-    public function firstRegister(Request $request)
+    public function UserRegister(Request $request)
     {
         $request->validate([
             'name' => 'required|max:191',
@@ -65,6 +67,7 @@ class homeController extends Controller
             'password' => 'required|max:191|min:6',
             'company_name' => 'required|max:191',
             'company_logo' => 'required',
+            'plan' => 'required',
         ]);
 
         if ($request->hasFile('company_logo')) {
@@ -73,22 +76,45 @@ class homeController extends Controller
             $request->file('company_logo')->move(public_path("storage/company"), $fileStore);
         }
 
+        $companyId = company::all()->count();
+        $companyId = "C".str_pad($companyId, 3, "0", STR_PAD_LEFT);
+
+        $register2 = new company;
+        $register2->company_name = $request->company_name;
+        $register2->plan = $request->plan;
+        $register2->company_logo = $fileStore;
+        $register2->Company_id = $companyId;
+        if ($request->plan == 1){
+            $register2->status = 1;
+        }
+        $register2->save();
+
+        $userId = "U".$companyId.str_pad(0, 3, "0", STR_PAD_LEFT);
+
         $time = time();
         $register = new user;
         $register->name = $request->name;
         $register->email = $request->email;
-        $register->user_id = $time;
+        $register->user_id = $userId;
         $register->password = Hash::make($request->password);
+        $register->Company_id = $companyId;
         $register->save();
 
 
-        $register2 = new company;
-        $register2->company_name = $request->company_name;
-        $register2->company_logo = $fileStore;
-        $register2->save();
-
         Session::put('email', $request->email);
         Session::put('userId', $time);
+        Session::put('companyId', $companyId);
         return redirect('/');
     }
+
+
+    public function logout()
+    {
+        Session::forget('email');
+        Session::forget('userId');
+        Session::forget('companyId');
+        Session::flush();
+        return redirect('/');
+    }
+
 }

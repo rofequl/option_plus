@@ -25,7 +25,7 @@
                                 <input type="text" class="form-control d-none" id="inputCategoryId">
                             </div>
                             <button type="submit" class="btn btn-primary mb-2 UpdateCategory">Update</button>
-                            <button type="button" class="btn btn-success mx-3 mb-2">Close</button>
+                            <button type="button" class="btn btn-success mx-3 mb-2 closer">Close</button>
                         </form>
                     </div>
                 </div>
@@ -65,6 +65,9 @@
     <script>
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $(document).ready(function () {
+            $(document).on('click', '.closer', function () {
+                $('.collapse').collapse('hide');
+            });
             $('#AddCategory').click(function () {
                 let category = $('#Category').val();
                 if (category != '') {

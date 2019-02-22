@@ -22,6 +22,7 @@ class CreateItemsTable extends Migration
             $table->string('description',9999);
             $table->string('manufacturer');
             $table->boolean('status')->default(0);
+            $table->string('Company_id');
             $table->timestamps();
         });
     }

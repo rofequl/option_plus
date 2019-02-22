@@ -36,6 +36,12 @@
                     <span>Product</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{{route('PriceList')}}">
+                    <i class="material-icons">view_module</i>
+                    <span>Price List</span>
+                </a>
+            </li>
         </ul>
     </div>
 </aside>

@@ -67,3 +67,11 @@ $(document).ready(function () {
         $('a[aria-expanded=true]').attr('aria-expanded', 'false');
     });
 });
+
+window.paceOptions = {
+
+    elements: false,
+
+
+    restartOnRequestAfter: false
+}

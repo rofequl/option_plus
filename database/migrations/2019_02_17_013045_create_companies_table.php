@@ -17,8 +17,12 @@ class CreateCompaniesTable extends Migration
             $table->increments('id');
             $table->string('Company_name');
             $table->string('Company_logo');
+            $table->string('Company_id');
             $table->string('Company_phone')->nullable();
             $table->string('Company_address')->nullable();
+            $table->boolean('plan');
+            $table->date('expired')->nullable();
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

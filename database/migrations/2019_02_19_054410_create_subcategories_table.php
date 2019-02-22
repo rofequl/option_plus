@@ -17,6 +17,7 @@ class CreateSubcategoriesTable extends Migration
             $table->increments('id');
             $table->string('category_id');
             $table->string('subcategory_name');
+            $table->string('Company_id');
             $table->timestamps();
         });
     }
