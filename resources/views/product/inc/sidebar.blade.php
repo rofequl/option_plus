@@ -31,6 +31,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link " href="{{route('unit')}}">
+                    <i class="material-icons">note_add</i>
+                    <span>Unit</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link " href="{{route('product')}}">
                     <i class="material-icons">view_module</i>
                     <span>Product</span>

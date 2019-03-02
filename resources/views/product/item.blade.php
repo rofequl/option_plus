@@ -24,6 +24,7 @@
                     </div>
                 </div>
                 <input type="file" name="ProductPic" class="ImageUpload d-none">
+                <input type="text" id="itemId" name="itemId" class="d-none">
                 <div class="row my-3">
                     <div class="col-6">
                         <select class="selectpicker border rounded form-control" name="CategoryId" id="CategoryId"
@@ -59,7 +60,13 @@
                         </div>
                     </div>
                     <div class="col-6 pr-0">
-
+                        <select class="selectpicker border rounded form-control" name="UnitId" id="UnitId"
+                                data-live-search="true">
+                            <option value="">Select Unit</option>
+                            @foreach($unit as $units)
+                                <option value="{{ $units->id }}">{{ $units->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
@@ -186,10 +193,22 @@
                     processData: false,
                     data: new FormData(this),
                     success: function (data) {
-                        Swal.fire({
-                            title: 'Product Submit Error!',
-                            html: data,
-                        })
+                        if(data == 1){
+                            Swal.fire(
+                                'Insert!',
+                                'This Product add Successfully',
+                                'success'
+                            )
+                        }else{
+                            Swal.fire({
+                                title: 'Product Submit Error!',
+                                html: data,
+                            })
+                        }
+
+                        table.ajax.reload();
+                        $('#sidebar').removeClass('active');
+                        $('.overlay').removeClass('active');
                     }
 
                 })
@@ -228,6 +247,7 @@
                             '                            <div class="col-6 text-right">Subcategory : </div><div class="col-6">'+data.subcategory+'</div>\n' +
                             '                            <div class="col-6 text-right">Item Name : </div><div class="col-6">'+data.name+'</div>\n' +
                             '                            <div class="col-6 text-right">Manufacturer :</div><div class="col-6">'+data.manufacturer+'</div>\n' +
+                            '                            <div class="col-6 text-right">Unit :</div><div class="col-6">'+data.unit+'</div>\n' +
                             '                            <div class="col-6 text-right">Status : </div><div class="col-6">'+data.status+'</div>\n' +
                             '                        </div>\n' +
                             '                    </div>\n' +
@@ -276,11 +296,11 @@
                 })
             });
 
-            $(document).on('click', '.edit', function () {
+            $(document).on('click', '.edit', function ()  {
                 $('.collapse').collapse('show');
                 let id = $(this).attr('id');
                 $.ajax({
-                    url: "{{ url('view-edit-item') }}",
+                    url: "{{ url('view-single-product') }}",
                     type: 'get',
                     data: {id: id,},
                     dataType: 'json',
@@ -291,11 +311,11 @@
                         $('a[aria-expanded=true]').attr('aria-expanded', 'false');
                         $('#InputHeader').html('Update Item');
                         $('#previewImage').html('<img src="storage/product/'+data.pic+'" class="img-thumbnail h-100 mx-auto" id="previewLogo">');
-                        $('#CategoryId').val(data.category);
+                        $('#CategoryId').val(data.categoryId);
                         $.ajax({
                             url: "{{ url('subcategory-select') }}",
                             type: 'post',
-                            data: {_token: CSRF_TOKEN, id: data.category},
+                            data: {_token: CSRF_TOKEN, id: data.categoryId},
                             dataType: 'json',
                             success: function (data) {
                                 $('#SubcategoryId').html('');
@@ -305,12 +325,14 @@
                                 $('.selectpicker').selectpicker('refresh');
                             }
                         });
-                        $('#SubcategoryId').val(data.subcategory);
-                        $('.selectpicker').selectpicker('refresh');
+                        $('#SubcategoryId').val(data.subcategoryId);
                         $('#ItemName').val(data.name);
                         $('#description').val(data.description);
                         $('#Manufacturer').val(data.manufacturer);
-                        $('#previewImage').html('<button type="submit" class="btn btn-primary w-75 mx-auto mt-4 addProduct">Update</button>');
+                        $('#UnitId').val(data.unitId);
+                        $('#itemId').val(data.id);
+                        $('.selectpicker').selectpicker('refresh');
+                        $('#InputButton').html('<button type="submit" class="btn btn-primary w-75 mx-auto mt-4 UpdateProduct">Update</button>');
                     }
                 });
             });

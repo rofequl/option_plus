@@ -2,6 +2,11 @@
 
 @section('content')
     @include('inc.sidebar')
+    <style>
+        #upload_form{
+            display: none;
+        }
+    </style>
 
     <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
         <!-- / .main-navbar -->
@@ -16,69 +21,151 @@
             <div class="card mb-4 pt-3">
                 <div class="card-header">
                     <div class="row">
-                        <button class="btn btn-primary btn-sm ml-auto no-shadow">Edit Profile</button>
+                        <button class="btn btn-primary btn-sm ml-auto no-shadow edit" id="{{$supplier->id}}">Edit Profile</button>
                     </div>
-                    <div class="row d-none">
+                    <div class="row animated fadeIn profile">
                         <div class="col-md-6 pl-md-5">
                             <div class="mb-3 mx-auto">
-                                <img class="rounded-circle" src="{{asset('storage/supplier/'.$supplier->image)}}"
+                                <img class="rounded-circle" src="{{asset('storage/supplier/'.$supplier->company_logo)}}"
                                      alt="User Avatar"
                                      width="110">
                             </div>
-                            <h4 class="mb-0">{{$supplier->name}}</h4>
-                            <span class="text-muted d-block my-2"><i class="material-icons mr-3"></i> {{$supplier->location}}</span>
-                            <span class="text-muted d-block my-2"><i class="material-icons mr-3"></i> {{$supplier->phone}}</span>
-                            <span class="text-muted d-block my-2"><i class="material-icons mr-3"></i> {{$supplier->email}}</span>
+                            <h4 class="mb-0">Company Information</h4>
+                            <span class="text-muted d-block my-2"><i class="material-icons mr-3"></i> {{$supplier->company_name}}</span>
+                            <span class="text-muted d-block my-2"><i class="material-icons mr-3"></i> {{$supplier->company_phone}}</span>
+                            <span class="text-muted d-block my-2"><i class="material-icons mr-3"></i> {{$supplier->company_location}}</span>
+                            <span class="text-muted d-block my-2"><i class="material-icons mr-3"></i> {{$supplier->company_email}}</span>
+                            <span class="text-muted d-block my-2"><i class="material-icons mr-3"></i> {{$supplier->company_reg_no}}</span>
+                            <span class="text-muted d-block my-2"><i class="material-icons mr-3"></i> {{$supplier->total_employ}}</span>
 
                         </div>
                         <div class="col-md-6">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item p-4">
-                                    <strong class="text-muted d-block mb-2">Description</strong>
-                                    <span>{{$supplier->details}}</span>
+
+
+                                    <strong class="text-muted d-block mb-2">Accountant Details:</strong>
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <span>Accountant Name: </span>
+                                        </div>
+                                        <div class="col-7">
+                                            <span>{{$supplier->accountant_name}}</span>
+                                        </div>
+                                        <div class="col-5">
+                                            <span>Address: </span>
+                                        </div>
+                                        <div class="col-7">
+                                            <span>{{$supplier->accountant_address}}</span>
+                                        </div>
+                                        <div class="col-5">
+                                            <span>Phone Number: </span>
+                                        </div>
+                                        <div class="col-7">
+                                            <span>{{$supplier->accountant_phone}}</span>
+                                        </div>
+                                    </div><hr>
+                                    <strong class="text-muted d-block mb-2">Bank Details:</strong>
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <span>Name of Bank: </span>
+                                        </div>
+                                        <div class="col-7">
+                                            <span>{{$supplier->bank_name}}</span>
+                                        </div>
+                                        <div class="col-5">
+                                            <span>Branch Address: </span>
+                                        </div>
+                                        <div class="col-7">
+                                            <span>{{$supplier->bank_address}}</span>
+                                        </div>
+                                        <div class="col-5">
+                                            <span>Account Number: </span>
+                                        </div>
+                                        <div class="col-7">
+                                            <span>{{$supplier->account_no}}</span>
+                                        </div>
+                                    </div><hr>
+                                    <strong class="text-muted d-block mb-2">Directors::</strong>
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <span>Name of Bank: </span>
+                                        </div>
+                                        <div class="col-7">
+                                            <span>{{$supplier->director_name}}</span>
+                                        </div>
+                                        <div class="col-5">
+                                            <span>D.O.B: </span>
+                                        </div>
+                                        <div class="col-7">
+                                            <span>{{$supplier->director_dob}}</span>
+                                        </div>
+                                        <div class="col-5">
+                                            <span>Address: </span>
+                                        </div>
+                                        <div class="col-7">
+                                            <span>{{$supplier->director_address}}</span>
+                                        </div>
+                                    </div>
+
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                    <form method="post" id="upload_form" enctype="multipart/form-data">
+                    <form method="post" class="py-4 animated fadeIn" id="upload_form" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="form-row mx-4">
+                            <div class="col mb-3">
+                                <p class="form-text text-muted m-0">Enter Company Information:</p>
+                            </div>
+                        </div>
+                        <div class="form-row mx-4">
                             <div class="col-lg-4">
-                                <label for="userProfilePicture" class="text-center w-100 mb-4">Profile Picture</label>
                                 <div class="edit-user-details__avatar m-auto">
-                                    <img src="{{asset('images/avatars/0.jpg')}}" id="previewLogo" alt="User Avatar shadow">
+                                    <img src="" class="img-fluid rounded"
+                                         style="height: 150px;width: 150px;display: none"
+                                         id="previewLogo">
                                 </div>
                                 <input type="file" name="ProductPic" class="d-none" id="ImageUpload">
-                                <button type="button" class="btn btn-sm btn-white d-table mx-auto mt-4" onclick="chooseFile()"><i class="material-icons"></i> Upload Image</button>
+                                <input type="text" name="id" class="d-none" id="id">
+                                <button type="button" class="btn btn-sm btn-white d-table mx-auto mt-4"
+                                        onclick="chooseFile()"><i class="material-icons"></i> Upload Company Logo
+                                </button>
                             </div>
                             <div class="col-lg-8">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="firstName">Name</label>
-                                        <input type="text" class="form-control" name="name" id="firstName" placeholder="Enter Supplier Name">
+                                        <input type="text" class="form-control" name="company_name" id="company_name"
+                                               placeholder="Enter Company Name">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="phoneNumber">Phone Number</label>
+                                        <label for="phoneNumber">Company Phone Number</label>
                                         <div class="input-group input-group-seamless">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
                                                     <i class="material-icons"></i>
                                                 </div>
                                             </div>
-                                            <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="+40 1234 567 890">
+                                            <input type="text" class="form-control" name="company_phone"
+                                                   id="company_phone" placeholder="+40 1234 567 890">
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="userLocation">Location</label>
+                                        <label for="userLocation">Company Location</label>
                                         <div class="input-group input-group-seamless mb-2">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
                                                     <i class="material-icons"></i>
                                                 </div>
                                             </div>
-                                            <input type="text" name="location" class="form-control" placeholder="Enter location">
+                                            <input type="text" name="company_location" id="company_location" class="form-control"
+                                                   placeholder="Enter location">
                                         </div>
+
+                                    </div>
+                                    <div class="form-group col-md-6">
                                         <label for="emailAddress">Email</label>
                                         <div class="input-group input-group-seamless">
                                             <div class="input-group-prepend">
@@ -86,20 +173,111 @@
                                                     <i class="material-icons"></i>
                                                 </div>
                                             </div>
-                                            <input type="email" class="form-control" name="emailAddress" id="emailAddress" placeholder="Enter Email">
+                                            <input type="email" class="form-control" name="company_email"
+                                                   id="company_email" placeholder="Enter Company Email">
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="userBio">Details</label>
-                                        <textarea style="min-height: 108px;" id="userBio" name="userBio" class="form-control" placeholder="Supplier Information"></textarea>
+                                        <label for="userLocation">Company Registration Number</label>
+                                        <div class="input-group input-group-seamless mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="material-icons"></i>
+                                                </div>
+                                            </div>
+                                            <input type="text" name="company_reg_no" id="company_reg_no" class="form-control"
+                                                   placeholder="845674">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="emailAddress">No of Employ</label>
+                                        <div class="input-group input-group-seamless">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="material-icons"></i>
+                                                </div>
+                                            </div>
+                                            <input type="email" class="form-control" name="total_employ" id="total_employ"
+                                                   placeholder="No of Employ">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </div><hr>
+                        <div class="form-row mx-4">
+                            <div class="col mb-3">
+                                <p class="form-text text-muted m-0">Accountant Details:</p>
+                            </div>
                         </div>
-                        <button type="button" class="btn btn-warning float-right mx-2 closer">Close</button>
-                        <button type="submit" class="btn btn-primary float-right">Submit</button>
-                    </form>
+                        <div class="form-row mx-4">
+                            <div class="form-group col-md-4">
+                                <label for="firstName">Accountant Name</label>
+                                <input type="text" class="form-control" name="accountant_name" id="accountant_name"
+                                       placeholder="Enter Accountant Name">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="firstName">Address</label>
+                                <input type="text" class="form-control" name="accountant_address" id="accountant_address"
+                                       placeholder="Enter Address">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="firstName">Phone Number</label>
+                                <input type="text" class="form-control" name="accountant_phone" id="accountant_phone"
+                                       placeholder="Enter Phone Number">
+                            </div>
+                        </div><hr>
+                        <div class="form-row mx-4">
+                            <div class="col mb-3">
+                                <p class="form-text text-muted m-0">Bank Details:</p>
+                            </div>
+                        </div>
+                        <div class="form-row mx-4">
+                            <div class="form-group col-md-4">
+                                <label for="firstName">Name of Bank</label>
+                                <input type="text" class="form-control" name="bank_name" id="bank_name"
+                                       placeholder="Enter Name of Bank">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="firstName">Branch Address</label>
+                                <input type="text" class="form-control" name="bank_address" id="bank_address"
+                                       placeholder="Enter Branch Address">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="firstName">Account Number</label>
+                                <input type="text" class="form-control" name="account_no" id="account_no"
+                                       placeholder="Enter Account Number">
+                            </div>
+                        </div><hr>
+                        <div class="form-row mx-4">
+                            <div class="col mb-3">
+                                <p class="form-text text-muted m-0">Private Address Of Partners / Directors:</p>
+                            </div>
+                        </div>
+                        <div class="form-row mx-4">
+                            <div class="form-group col-md-4">
+                                <label for="firstName">Name</label>
+                                <input type="text" class="form-control" name="director_name" id="director_name"
+                                       placeholder="Enter Name">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="firstName">D.O.B</label>
+                                <input type="text" class="form-control" name="director_dob" id="director_dob"
+                                       placeholder="D.O.B">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="firstName">Address</label>
+                                <input type="text" class="form-control" name="director_address" id="director_address"
+                                       placeholder="Enter Address">
+                            </div>
+                        </div>
 
+                        <div class="form-row mt-3">
+                            <button type="submit" class="btn btn-sm btn-accent ml-auto mr-3 w-25">Update</button>
+                            <button type="button" class="btn btn-sm btn-warning ml-auto mr-3 closer">Close</button>
+                        </div>
+
+                    </form>
                 </div>
 
                 <div class="card-body">
@@ -154,6 +332,80 @@
 
         </div>
     </main>
+
+    <script>
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+        $(document).ready(function () {
+
+            $(document).on('click', '.edit', function () {
+                $('.profile,.edit').hide();
+                let id = $(this).attr('id');
+                $.ajax({
+                    url: "{{ url('view-single-supplier') }}",
+                    type: 'get',
+                    data: {id: id,},
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#previewLogo').attr('src', '{{asset('storage/supplier/')."/"}}'+data.company_logo).show();
+                        $('#company_name').val(data.company_name);
+                        $('#company_phone').val(data.company_phone);
+                        $('#company_location').val(data.company_location);
+                        $('#company_email').val(data.company_email);
+                        $('#company_reg_no').val(data.company_reg_no);
+                        $('#total_employ').val(data.total_employ);
+                        $('#accountant_name').val(data.accountant_name);
+                        $('#accountant_address').val(data.accountant_address);
+                        $('#accountant_phone').val(data.accountant_phone);
+                        $('#bank_name').val(data.bank_name);
+                        $('#bank_address').val(data.bank_address);
+                        $('#account_no').val(data.account_no);
+                        $('#director_name').val(data.director_name);
+                        $('#director_dob').val(data.director_dob);
+                        $('#director_address').val(data.director_address);
+                        $('#id').val(data.id);
+                    }
+                });
+                $('#upload_form').show();
+            });
+            $(document).on('click', '.closer', function () {
+                $('.profile,.edit').show();
+                $('#upload_form').hide();
+            });
+            $('#upload_form').on('submit', function () {
+                event.preventDefault();
+                $.ajax({
+                    url: "{{ url('add-supplier') }}",
+                    method: "POST",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: new FormData(this),
+                    success: function (data) {
+                        if(data == 1){
+                            Swal.fire(
+                                'Supplier update successfully!',
+                                'success'
+                            )
+                        }else {
+                            Swal.fire({
+                                title: 'Supplier Submit Error!',
+                                html: data,
+                            })
+                        }
+
+                        $('.profile,.edit').show();
+                        $('#upload_form').hide();
+                    }
+
+                })
+            });
+
+        });
+
+
+
+    </script>
 
 
 @endsection

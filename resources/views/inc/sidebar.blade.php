@@ -28,7 +28,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="tables.html">
+                <a class="nav-link " href="{{route('customer')}}">
                     <i class="material-icons">table_chart</i>
                     <span>Customer</span>
                 </a>

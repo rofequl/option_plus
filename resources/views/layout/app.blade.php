@@ -24,6 +24,7 @@
 
     <link rel="stylesheet" href="{{asset('styles/extras.1.1.0.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/util/util.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/animate/animate.css')}}">
     <link rel="stylesheet" href="{{asset('custom/style.css')}}">
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>

@@ -48,12 +48,18 @@ Route::group(['middleware' => 'CheckLogin'], function () {
     Route::get('/view-edit-subcategory','ProductController@ViewEditSubcategory');
     Route::post('/update-subcategory','ProductController@UpdateSubcategory');
 
+    Route::get('/unit','ProductController@Unit')->name('unit');
+    Route::get('/view-unit','ProductController@ViewUnit');
+    Route::post('/add-unit','ProductController@AddUnit');
+    Route::get('/delete-unit','ProductController@DeleteUnit');
+    Route::get('/view-edit-unit','ProductController@ViewEditUnit');
+    Route::post('/update-unit','ProductController@UpdateUnit');
+
     Route::get('/product','ProductController@product')->name('product');
     Route::post('/add-product','ProductController@AddProduct');
     Route::get('/view-product','ProductController@ViewProduct');
     Route::get('/view-single-product','ProductController@ViewSingleProduct');
     Route::get('/delete-item','ProductController@DeleteItem');
-	Route::get('/view-edit-item','ProductController@ViewEditItem');
 
     Route::get('/price-list','ProductController@PriceList')->name('PriceList');
     Route::get('/view-price-list','ProductController@ViewPriceList');
@@ -69,8 +75,16 @@ Route::group(['middleware' => 'CheckLogin'], function () {
 
     Route::get('/supplier/{data}','SupplierController@SupplierIndividual');
 
+    Route::get('/view-single-supplier','SupplierController@ViewSingleSupplier');
 
+    Route::get('/customer','CustomerController@Customer')->name('customer');
+    Route::post('/add-customer','CustomerController@AddCustomer');
+    Route::get('/view-customer','CustomerController@ViewCustomer');
+    Route::get('/delete-customer','CustomerController@DeleteCustomer');
 
+    Route::get('/customer/{data}','CustomerController@CustomerIndividual');
+
+});
 
 
 

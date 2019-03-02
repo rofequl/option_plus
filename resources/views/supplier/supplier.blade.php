@@ -15,66 +15,171 @@
                 </div>
             </div>
             <div class="collapse my-4" id="collapseExample">
-                <div class="card">
-                    <div class="card-header border-bottom inputheader">Add New Supplier</div>
-                    <div class="card-body">
-                        <form method="post" id="upload_form" enctype="multipart/form-data">
+                <div class="card edit-user-details">
+                    <div class="card-body p-0">
+                        <form method="post" class="py-4" id="upload_form" enctype="multipart/form-data">
                             {{csrf_field()}}
-                        <div class="form-row mx-4">
-                            <div class="col-lg-4">
-                                <label for="userProfilePicture" class="text-center w-100 mb-4">Profile Picture</label>
-                                <div class="edit-user-details__avatar m-auto">
-                                    <img src="images/avatars/0.jpg" id="previewLogo" alt="User Avatar shadow">
-                                </div>
-                                <input type="file" name="ProductPic" class="d-none" id="ImageUpload">
-                                <button type="button" class="btn btn-sm btn-white d-table mx-auto mt-4" onclick="chooseFile()"><i class="material-icons"></i> Upload Image</button>
-                            </div>
-                            <div class="col-lg-8">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="firstName">Name</label>
-                                        <input type="text" class="form-control" name="name" id="firstName" placeholder="Enter Supplier Name">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="phoneNumber">Phone Number</label>
-                                        <div class="input-group input-group-seamless">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i class="material-icons"></i>
-                                                </div>
-                                            </div>
-                                            <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="+40 1234 567 890">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="userLocation">Location</label>
-                                        <div class="input-group input-group-seamless mb-2">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i class="material-icons"></i>
-                                                </div>
-                                            </div>
-                                            <input type="text" name="location" class="form-control" placeholder="Enter location">
-                                        </div>
-                                        <label for="emailAddress">Email</label>
-                                        <div class="input-group input-group-seamless">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i class="material-icons"></i>
-                                                </div>
-                                            </div>
-                                            <input type="email" class="form-control" name="emailAddress" id="emailAddress" placeholder="Enter Email">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                            <label for="userBio">Details</label>
-                                            <textarea style="min-height: 108px;" id="userBio" name="userBio" class="form-control" placeholder="Supplier Information"></textarea>
-                                    </div>
+                            <div class="form-row mx-4">
+                                <div class="col mb-3">
+                                    <p class="form-text text-muted m-0">Enter Company Information:</p>
                                 </div>
                             </div>
-                        </div>
-                        <button type="button" class="btn btn-warning float-right mx-2 closer">Close</button>
-                        <button type="submit" class="btn btn-primary float-right">Submit</button>
+                            <div class="form-row mx-4">
+                                <div class="col-lg-4">
+                                    <div class="edit-user-details__avatar m-auto">
+                                        <img src="" class="img-fluid rounded"
+                                             style="height: 150px;width: 150px;display: none"
+                                             id="previewLogo">
+                                    </div>
+                                    <input type="file" name="ProductPic" class="d-none" id="ImageUpload">
+                                    <button type="button" class="btn btn-sm btn-white d-table mx-auto mt-4"
+                                            onclick="chooseFile()"><i class="material-icons"></i> Upload Company Logo
+                                    </button>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="firstName">Name</label>
+                                            <input type="text" class="form-control" name="company_name" id="company_name"
+                                                   placeholder="Enter Company Name">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="phoneNumber">Company Phone Number</label>
+                                            <div class="input-group input-group-seamless">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="material-icons"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control" name="company_phone"
+                                                       id="company_phone" placeholder="+40 1234 567 890">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="userLocation">Company Location</label>
+                                            <div class="input-group input-group-seamless mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="material-icons"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" name="company_location" id="company_location" class="form-control"
+                                                       placeholder="Enter location">
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="emailAddress">Email</label>
+                                            <div class="input-group input-group-seamless">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="material-icons"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="email" class="form-control" name="company_email"
+                                                       id="company_email" placeholder="Enter Company Email">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="userLocation">Company Registration Number</label>
+                                            <div class="input-group input-group-seamless mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="material-icons"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="number" name="company_reg_no" id="company_reg_no" class="form-control"
+                                                       placeholder="845674">
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="emailAddress">No of Employ</label>
+                                            <div class="input-group input-group-seamless">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="material-icons"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="email" class="form-control" name="total_employ" id="total_employ"
+                                                        placeholder="No of Employ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><hr>
+                            <div class="form-row mx-4">
+                                <div class="col mb-3">
+                                    <p class="form-text text-muted m-0">Accountant Details:</p>
+                                </div>
+                            </div>
+                            <div class="form-row mx-4">
+                                <div class="form-group col-md-4">
+                                    <label for="firstName">Accountant Name</label>
+                                    <input type="text" class="form-control" name="accountant_name" id="accountant_name"
+                                           placeholder="Enter Accountant Name">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="firstName">Address</label>
+                                    <input type="text" class="form-control" name="accountant_address" id="accountant_address"
+                                           placeholder="Enter Address">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="firstName">Phone Number</label>
+                                    <input type="text" class="form-control" name="accountant_phone" id="accountant_phone"
+                                           placeholder="Enter Phone Number">
+                                </div>
+                            </div><hr>
+                            <div class="form-row mx-4">
+                                <div class="col mb-3">
+                                    <p class="form-text text-muted m-0">Bank Details:</p>
+                                </div>
+                            </div>
+                            <div class="form-row mx-4">
+                                <div class="form-group col-md-4">
+                                    <label for="firstName">Name of Bank</label>
+                                    <input type="text" class="form-control" name="bank_name" id="bank_name"
+                                           placeholder="Enter Name of Bank">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="firstName">Branch Address</label>
+                                    <input type="text" class="form-control" name="bank_address" id="bank_address"
+                                           placeholder="Enter Branch Address">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="firstName">Account Number</label>
+                                    <input type="text" class="form-control" name="account_no" id="account_no"
+                                           placeholder="Enter Account Number">
+                                </div>
+                            </div><hr>
+                            <div class="form-row mx-4">
+                                <div class="col mb-3">
+                                    <p class="form-text text-muted m-0">Private Address Of Partners / Directors:</p>
+                                </div>
+                            </div>
+                            <div class="form-row mx-4">
+                                <div class="form-group col-md-4">
+                                    <label for="firstName">Name</label>
+                                    <input type="text" class="form-control" name="director_name" id="director_name"
+                                           placeholder="Enter Name">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="firstName">D.O.B</label>
+                                    <input type="text" class="form-control" name="director_dob" id="director_dob"
+                                           placeholder="D.O.B">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="firstName">Address</label>
+                                    <input type="text" class="form-control" name="director_address" id="director_address"
+                                           placeholder="Enter Address">
+                                </div>
+                            </div>
+
+                            <div class="form-row mt-3">
+                                <button type="submit" class="btn btn-sm btn-accent ml-auto mr-3 w-25">Submit</button>
+                                <button type="button" class="btn btn-sm btn-warning ml-auto mr-3 closer">Close</button>
+                            </div>
+
                         </form>
                     </div>
                 </div>
@@ -83,7 +188,8 @@
                 <div class="col">
                     <div class="card card-small mb-4">
                         <div class="card-header border-bottom">
-                            <button class="btn btn-primary float-right add"><i class="fa-1x fas fa-plus"></i> Add Supplier
+                            <button class="btn btn-primary float-right add"><i class="fa-1x fas fa-plus"></i> Add
+                                Supplier
                             </button>
                         </div>
                         <div class="card-body p-0 text-center ReactTable">
@@ -158,10 +264,19 @@
                     processData: false,
                     data: new FormData(this),
                     success: function (data) {
-                        Swal.fire({
-                            title: 'Product Submit Error!',
-                            html: data,
-                        })
+                        if(data == 1){
+                            Swal.fire(
+                                'New supplier add successfully!',
+                                'success'
+                            )
+                        }else {
+                            Swal.fire({
+                                title: 'supplier Submit Error!',
+                                html: data,
+                            })
+                        }
+                        $('.collapse').collapse('hide');
+                        table.ajax.reload();
                     }
 
                 })
@@ -173,8 +288,8 @@
                 columns: [
                     {data: 'id'},
                     {data: 'supplier_id'},
-                    {data: 'name'},
-                    {data: 'phone'},
+                    {data: 'company_name'},
+                    {data: 'company_phone'},
                     {data: 'created_at'},
                     {data: 'action', orderable: false, searchable: false}
                 ]

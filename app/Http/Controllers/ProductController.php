@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\item;
 use App\product_price;
 use App\subcategory;
+use App\unit;
 use DataTables;
 use App\category;
 use Illuminate\Http\Request;
@@ -134,6 +135,63 @@ class ProductController extends Controller
         echo 1;
     }
 
+    public function Unit()
+    {
+        return view('product.unit');
+    }
+
+    public function AddUnit(Request $request)
+    {
+        $value = unit::where('Company_id',Session('companyId'))->where('name', $request->name)->count();
+        if ($value > 0) {
+            echo 0;
+        } else {
+            $insert = new unit;
+            $insert->name = $request->name;
+            $insert->Company_id = Session('companyId');
+            $insert->save();
+            echo 1;
+        }
+    }
+
+    public function ViewUnit()
+    {
+        $unit = unit::where('Company_id',Session('companyId'))->select('id', 'name', 'created_at');
+
+        return DataTables::of($unit)->addColumn('action', function ($unit) {
+            return '<div class="d-table mx-auto btn-group-sm btn-group">
+            <button type="button" class="btn btn-white edit" id="' . $unit->id . '"><i class="material-icons"></i></button>
+            <button type="button" id="' . $unit->id . '" class="btn btn-white delete"><i class="material-icons"></i></button>
+            </div>';
+        })->make(true);
+    }
+
+    public function DeleteUnit(Request $request)
+    {
+        $category = unit::find($request->input('id'));
+        if ($category->delete()) {
+            echo "1";
+        }
+    }
+
+    public function ViewEditUnit(Request $request)
+    {
+        $unit = unit::find($request->input('id'));
+        $output = array(
+            'name' => $unit->name,
+            'id' => $unit->id
+        );
+        echo json_encode($output);
+    }
+
+    public function UpdateUnit(Request $request)
+    {
+        $insert = unit::find($request->id);
+        $insert->name = $request->name;
+        $insert->save();
+        echo 1;
+    }
+
     public function SubcategorySelect(Request $request)
     {
         $subcategory = subcategory::where('Company_id',Session('companyId'))->where('category_id', $request->id)->get();
@@ -143,7 +201,8 @@ class ProductController extends Controller
     public function product()
     {
         $category = category::where('Company_id',Session('companyId'))->get();
-        return view('product.item', compact('category'));
+        $unit = unit::where('Company_id',Session('companyId'))->get();
+        return view('product.item', compact('category','unit'));
     }
 
     public function AddProduct(Request $request)
@@ -155,11 +214,16 @@ class ProductController extends Controller
             'ItemName' => 'required',
             'description' => 'required',
             'Manufacturer' => 'required',
+            'UnitId' => 'required',
         );
 
         $validation = Validator::make($request->all(), $rules);
         if ($validation->passes()) {
-            $item = new item;
+            if($request->itemId != ""){
+                $item = item::find($request->itemId);
+            }else{
+                $item = new item;
+            }
             if ($request->hasFile('ProductPic')) {
                 $extension = $request->file('ProductPic')->getClientOriginalExtension();
                 $fileStore2 = rand(10, 100) . time() . "." . $extension;
@@ -172,6 +236,7 @@ class ProductController extends Controller
             $item->item_name = $request->ItemName;
             $item->description = $request->description;
             $item->manufacturer = $request->Manufacturer;
+            $item->unit_id = $request->UnitId;
             $item->Company_id = Session('companyId');
             $item->save();
             echo 1;
@@ -198,7 +263,7 @@ class ProductController extends Controller
             <button type="button" id="' . $item->id . '" class="btn btn-white delete"><i class="material-icons"></i></button>
             </div>';
         })->addColumn('image', function ($item) {
-            return '<img src="' . $item->item_pic . '" class="img-thumbnail" width="70px">';
+            return '<img src="storage/product/' . $item->item_pic . '" class="img-thumbnail" width="70px">';
         })->addColumn('category', function ($item) {
             return category::where('id', $item->category_id)->pluck('category_name')->first();
         })->addColumn('subcategory', function ($item) {
@@ -216,9 +281,13 @@ class ProductController extends Controller
             'pic' => $item->item_pic,
             'description' => $item->description,
             'manufacturer' => $item->manufacturer,
+            'unit' => unit::where('id', $item->unit_id)->pluck('name')->first(),
             'status' => $item->status,
             'created' => $item->created_at,
             'id' => $item->id,
+            'categoryId' => $item->category_id,
+            'subcategoryId' => $item->subcategory_id,
+            'unitId' => $item->unit_id,
         );
         echo json_encode($output);
     }
@@ -229,23 +298,6 @@ class ProductController extends Controller
         if ($category->delete()) {
             echo "1";
         }
-    }
-	
-public function ViewEditItem(Request $request)
-    {
-        $item = item::find($request->id);
-        $output = array(
-            'subcategory' => $item->subcategory_id,
-            'category' => $item->category_id,
-            'name' => $item->item_name,
-            'pic' => $item->item_pic,
-            'description' => $item->description,
-            'manufacturer' => $item->manufacturer,
-            'status' => $item->status,
-            'created' => $item->created_at,
-            'id' => $item->id,
-        );
-        echo json_encode($output);
     }
 
     public function PriceList()
@@ -313,7 +365,7 @@ public function ViewEditItem(Request $request)
         $insert->save();
         echo 1;
     }
-
+}
 
 
 
