@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\country;
 use App\item;
 use App\product_price;
 use App\subcategory;
@@ -303,21 +304,33 @@ class ProductController extends Controller
     public function PriceList()
     {
         $item = item::where('Company_id',Session('companyId'))->get();
-        return view('product.price_list',compact('item'));
+        $country = country::all();
+        return view('product.price_list',compact('item','country'));
     }
 
     public function AddPriceList(Request $request)
     {
-        $value = product_price::where('product_id', $request->itemId)->count();
+        $value = product_price::where('item_id', $request->ItemId)->where('country_id', $request->CountryId)->count();
         if ($value > 0) {
-            $insert = product_price::where('product_id', $request->itemId)->first();
+            $insert = product_price::where('item_id', $request->ItemId)->where('country_id', $request->CountryId)->first();
+            $insert->country_id = $request->CountryId;
+            $insert->item_id = $request->ItemId;
             $insert->price = $request->price;
+            $insert->vat = $request->vat;
+            $insert->tax = $request->tax;
+            $insert->discount = $request->discount;
+            $insert->ait = $request->ait;
             $insert->save();
             echo 0;
         } else {
             $insert = new product_price;
-            $insert->product_id = $request->itemId;
+            $insert->country_id = $request->CountryId;
+            $insert->item_id = $request->ItemId;
             $insert->price = $request->price;
+            $insert->vat = $request->vat;
+            $insert->tax = $request->tax;
+            $insert->discount = $request->discount;
+            $insert->ait = $request->ait;
             $insert->Company_id = Session('companyId');
             $insert->save();
             echo 1;
@@ -326,15 +339,17 @@ class ProductController extends Controller
 
     public function ViewPriceList()
     {
-        $price = product_price::where('Company_id',Session('companyId'))->select('id', 'product_id', 'price', 'created_at');
+        $price = product_price::where('Company_id',Session('companyId'))->get();
 
         return DataTables::of($price)->addColumn('action', function ($price) {
             return '<div class="d-table mx-auto btn-group-sm btn-group">
             <button type="button" class="btn btn-white edit" id="' . $price->id . '"><i class="material-icons"></i></button>
             <button type="button" id="' . $price->id . '" class="btn btn-white delete"><i class="material-icons"></i></button>
             </div>';
-        })->addColumn('product', function ($price) {
-            return item::where('id', $price->product_id)->pluck('item_name')->first();
+        })->addColumn('country', function ($price) {
+            return country::where('id', $price->country_id)->pluck('name')->first();
+        })->addColumn('item', function ($price) {
+            return item::where('id', $price->item_id)->pluck('item_name')->first();
         })->make(true);
     }
 
@@ -350,8 +365,13 @@ class ProductController extends Controller
     {
         $price = product_price::find($request->input('id'));
         $output = array(
-            'product_id' => $price->product_id,
+            'item' => $price->item_id,
+            'country' => $price->country_id,
             'price' => $price->price,
+            'vat' => $price->vat,
+            'tax' => $price->tax,
+            'discount' => $price->discount,
+            'ait' => $price->ait,
             'id' => $price->id
         );
         echo json_encode($output);

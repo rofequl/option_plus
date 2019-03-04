@@ -31,6 +31,8 @@ Route::group(['middleware' => 'CheckLogin'], function () {
 
     Route::post('/subcategory-select','ProductController@SubcategorySelect');
 
+    Route::post('/currency-country-id','GlobalController@Currency');
+
     Route::get('/tracking','TrackingController@Tracking');
 
 

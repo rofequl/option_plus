@@ -69,9 +69,13 @@ $(document).ready(function () {
 });
 
 window.paceOptions = {
-
     elements: false,
-
-
     restartOnRequestAfter: false
 }
+
+$(document).ready(function() {
+    $('select').niceSelect();
+});
+
+
+
