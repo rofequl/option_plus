@@ -2,7 +2,7 @@
 @section('content')
 
     <div class="row">
-        <div class="card card-small mx-auto mt-4">
+        <div class="card card-small mx-auto my-4">
             <div class="card-header border-bottom">
                 <h6 class="m-0">Create admin account and ready this app prepare for work</h6>
             </div>

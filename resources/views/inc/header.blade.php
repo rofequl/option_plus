@@ -36,13 +36,15 @@
                             <div class="col-2">
                                 <h6 class="text-success">Product</h6><hr class="my-0 bg-secondary">
                                 <ul class="list-unstyled font-weight-normal lh-1-9">
-                                    <li>Category</li>
-                                    <li>Subcategory</li>
-                                    <li>Item</li>
+                                    <li><a class="nav-link lh-1-1" href="{{route('category')}}">Category</a></li>
+                                    <li><a class="nav-link lh-1-1" href="{{route('subcategory')}}">Subcategory</a></li>
+                                    <li><a class="nav-link lh-1-1" href="{{route('unit')}}">Unit</a></li>
+                                    <li><a class="nav-link lh-1-1" href="{{route('product')}}">Item</a></li>
+                                    <li><a class="nav-link lh-1-1" href="{{route('PriceList')}}">Price List</a></li>
                                 </ul>
                             </div>
                             <div class="col-2">
-                                <h6 class="text-success">Product</h6><hr class="my-0 bg-secondary">
+                                <h6 class="text-success">Purchase</h6><hr class="my-0 bg-secondary">
                                 <ul class="list-unstyled font-weight-normal lh-1-9">
                                     <li>Category</li>
                                     <li>Subcategory</li>
@@ -50,7 +52,7 @@
                                 </ul>
                             </div>
                             <div class="col-2">
-                                <h6 class="text-success">Product</h6><hr class="my-0 bg-secondary">
+                                <h6 class="text-success">Sales</h6><hr class="my-0 bg-secondary">
                                 <ul class="list-unstyled font-weight-normal lh-1-9">
                                     <li>Category</li>
                                     <li>Subcategory</li>
@@ -58,7 +60,7 @@
                                 </ul>
                             </div>
                             <div class="col-2">
-                                <h6 class="text-success">Product</h6><hr class="my-0 bg-secondary">
+                                <h6 class="text-success">Customer</h6><hr class="my-0 bg-secondary">
                                 <ul class="list-unstyled font-weight-normal lh-1-9">
                                     <li>Category</li>
                                     <li>Subcategory</li>
@@ -66,15 +68,15 @@
                                 </ul>
                             </div>
                             <div class="col-2">
-                                <h6 class="text-success">Product</h6><hr class="my-0 bg-secondary">
+                                <h6 class="text-success">Supplier</h6><hr class="my-0 bg-secondary">
                                 <ul class="list-unstyled font-weight-normal lh-1-9">
-                                    <li>Category</li>
+                                    <li><a class="nav-link lh-1-1" href="{{route('supplier')}}">Supplier</a></li>
                                     <li>Subcategory</li>
                                     <li>Item</li>
                                 </ul>
                             </div>
                             <div class="col-2">
-                                <h6 class="text-success">Product</h6><hr class="my-0 bg-secondary">
+                                <h6 class="text-success">Reports</h6><hr class="my-0 bg-secondary">
                                 <ul class="list-unstyled font-weight-normal lh-1-9">
                                     <li>Category</li>
                                     <li>Subcategory</li>
