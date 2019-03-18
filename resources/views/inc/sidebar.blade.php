@@ -40,6 +40,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link " href="{{route('expenses')}}">
+                    <i class="material-icons">person</i>
+                    <span>Expenses</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link " href="errors.html">
                     <i class="material-icons">error</i>
                     <span>Reports</span>

@@ -81,7 +81,7 @@ class ProductController extends Controller
 
     public function AddSubcategory(Request $request)
     {
-        $value = subcategory::where('Company_id',Session('companyId'))->where('subcategory_name', $request->subcategory)->count();
+        $value = subcategory::where('Company_id',Session('companyId'))->where('category_id', $request->categoryId)->where('subcategory_name', $request->subcategory)->count();
         if ($value > 0) {
             echo 0;
         } else {

@@ -76,15 +76,29 @@ Route::group(['middleware' => 'CheckLogin'], function () {
     Route::get('/delete-supplier','SupplierController@DeleteSupplier');
 
     Route::get('/supplier/{data}','SupplierController@SupplierIndividual');
-
     Route::get('/view-single-supplier','SupplierController@ViewSingleSupplier');
 
     Route::get('/customer','CustomerController@Customer')->name('customer');
-    Route::post('/add-customer','CustomerController@AddCustomer');
-    Route::get('/view-customer','CustomerController@ViewCustomer');
-    Route::get('/delete-customer','CustomerController@DeleteCustomer');
+    Route::post('/add-customer','CustomerController@AddCustomer')->name('add.customer');
+    Route::get('/view-customer','CustomerController@ViewCustomer')->name('view.customer');
+    Route::get('/delete-customer','CustomerController@DeleteCustomer')->name('delete.customer');
 
     Route::get('/customer/{data}','CustomerController@CustomerIndividual');
+    Route::get('/view-single-customer','CustomerController@ViewSingleCustomer');
+
+    Route::get('/expenses','ExpensesController@Expenses')->name('expenses');
+    Route::get('/view-expenses','ExpensesController@ViewExpenses')->name('view.expenses');
+    Route::post('/add-expenses','ExpensesController@AddExpenses');
+    Route::get('/delete-expenses','ExpensesController@DeleteExpenses')->name('delete.expenses');
+    Route::get('/view-edit-expenses','ExpensesController@ViewEditExpenses')->name('view.edit.expenses');
+    Route::post('/update-expenses','ExpensesController@UpdateExpenses')->name('update.expenses');
+
+    Route::get('/expenses-list','ExpensesController@ExpensesList')->name('expenses.list');
+    Route::get('/view-expenses-list','ExpensesController@ViewExpensesList')->name('view.expenses.list');
+    Route::post('/add-expenses-list','ExpensesController@AddExpensesList');
+    Route::get('/delete-expenses-list','ExpensesController@DeleteExpensesList')->name('delete.expenses.list');
+    Route::get('/view-edit-expenses-list','ExpensesController@ViewEditExpensesList')->name('view.edit.expenses.list');
+    Route::post('/update-expenses-list','ExpensesController@UpdateExpensesList')->name('update.expenses.list');
 
 });
 

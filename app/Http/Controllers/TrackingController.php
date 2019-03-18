@@ -11,6 +11,8 @@ class TrackingController extends Controller
         $value = substr($request->id,0,1);
         if($value == "S"){
             return '/supplier/'.$request->id;
+        }elseif ($value == "C"){
+            return '/customer/'.$request->id;
         }
         return '/supplier/'.$request->id;
     }
