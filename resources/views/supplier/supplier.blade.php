@@ -269,14 +269,14 @@
                                 'New supplier add successfully!',
                                 'success'
                             )
+                            $('.collapse').collapse('hide');
+                            table.ajax.reload();
                         }else {
                             Swal.fire({
                                 title: 'supplier Submit Error!',
                                 html: data,
                             })
                         }
-                        $('.collapse').collapse('hide');
-                        table.ajax.reload();
                     }
 
                 })

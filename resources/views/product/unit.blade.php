@@ -138,7 +138,9 @@
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: 'Yes, delete it!',
+                    animation: false,
+                    customClass: 'animated bounceInDown'
                 }).then((result) => {
                     if (result.value) {
                         $.ajax({
@@ -148,11 +150,13 @@
                             success: function (response) {
                                 if (response == 1) {
                                     table.ajax.reload();
-                                    Swal.fire(
-                                        'Deleted!',
-                                        'This Unit has been deleted.',
-                                        'success'
-                                    )
+                                    Swal.fire({
+                                        type: 'success',
+                                        title: 'Deleted',
+                                        text: 'This Unit has been deleted.',
+                                        animation: false,
+                                        customClass: 'animated tada'
+                                    })
                                 } else {
                                     Swal.fire(
                                         'Deleted!',

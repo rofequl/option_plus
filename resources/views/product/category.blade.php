@@ -81,6 +81,7 @@
                                     toast: true,
                                     position: 'top-end',
                                     showConfirmButton: false,
+                                    customClass: 'animated tada',
                                     timer: 3000
                                 });
 
@@ -91,16 +92,18 @@
                                 $('#Category').val('');
                                 table.ajax.reload();
                             } else if (response == 0) {
-                                Swal.fire(
-                                    'This name already in use.',
-                                    '',
-                                    'warning'
-                                )
+                                Swal.fire({
+                                    type: 'warning',
+                                    title: 'Eroor',
+                                    text: 'This name already in use.',
+                                    animation: false,
+                                    customClass: 'animated tada'
+                                })
                             } else {
                                 Swal.fire(
                                     response,
                                     'Something wrong, please contact administrator.',
-                                    'error'
+                                    'error',
                                 )
                             }
                         }
@@ -132,7 +135,9 @@
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: 'Yes, delete it!',
+                    animation: false,
+                    customClass: 'animated bounceInDown'
                 }).then((result) => {
                     if (result.value) {
                         $.ajax({
@@ -142,11 +147,13 @@
                             success: function (response) {
                                 if (response == 1) {
                                     table.ajax.reload();
-                                    Swal.fire(
-                                        'Deleted!',
-                                        'This category has been deleted.',
-                                        'success'
-                                    )
+                                    Swal.fire({
+                                        type: 'success',
+                                        title: 'Deleted',
+                                        text: 'This category has been deleted.',
+                                        animation: false,
+                                        customClass: 'animated tada'
+                                    })
                                 } else {
                                     Swal.fire(
                                         'Deleted!',
