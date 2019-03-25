@@ -14,7 +14,7 @@
             <!-- Page Header -->
             <div class="page-header row no-gutters py-4">
                 <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-                    <h3 class="page-title">Supplier</h3>
+                    <h3 class="page-title">Customer</h3>
                 </div>
             </div>
 

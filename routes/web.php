@@ -100,6 +100,14 @@ Route::group(['middleware' => 'CheckLogin'], function () {
     Route::get('/view-edit-expenses-list','ExpensesController@ViewEditExpensesList')->name('view.edit.expenses.list');
     Route::post('/update-expenses-list','ExpensesController@UpdateExpensesList')->name('update.expenses.list');
 
+    Route::get('/warehouses','WarehouseController@Warehouses')->name('warehouses');
+    Route::get('/view-warehouses','WarehouseController@ViewWarehouses')->name('view.warehouses');
+    Route::post('/add-warehouses','WarehouseController@AddWarehouses');
+    Route::get('/delete-warehouses','WarehouseController@DeleteWarehouses')->name('delete.warehouses');
+    Route::get('/view-edit-warehouses','WarehouseController@ViewEditWarehouses')->name('view.edit.warehouses');
+    Route::post('/update-warehouses','WarehouseController@UpdateWarehouses')->name('update.warehouses');
+
+
 });
 
 

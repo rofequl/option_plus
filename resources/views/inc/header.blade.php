@@ -16,7 +16,7 @@
                     </a>
                 </nav>
             </div>
-            <form action="#" class="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
+            <div class="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
                 <div class="input-group input-group-seamless ml-3">
                     <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -167,6 +167,7 @@
                         <i class="material-icons">&#xE5D2;</i>
                     </a>
                 </nav>
+            </div>
         </nav>
     </div>
 </main>
@@ -181,6 +182,7 @@
                 data: {id: id,},
                 success: function (data) {
                     window.location.href = data;
+
                 }
             });
         }
