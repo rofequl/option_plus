@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\country;
 use App\warehouse;
 use DataTables;
 use Validator;
@@ -12,7 +13,8 @@ class WarehouseController extends Controller
 {
     public function Warehouses()
     {
-        return view('warehouse.warehouse');
+        $country = country::all();
+        return view('warehouse.warehouse',compact('country'));
     }
 
     public function AddWarehouses(Request $request)
@@ -28,6 +30,7 @@ class WarehouseController extends Controller
             $insert->name = $request->name;
             $insert->phone = $request->phone;
             $insert->email = $request->email;
+            $insert->country_id = $request->country;
             $insert->address = $request->address;
             $insert->Company_id = Session('companyId');
             $insert->save();
@@ -44,6 +47,8 @@ class WarehouseController extends Controller
             <button type="button" class="btn btn-white edit" id="' . $warehouse->id . '"><i class="material-icons"></i></button>
             <button type="button" id="' . $warehouse->id . '" class="btn btn-white delete"><i class="material-icons"></i></button>
             </div>';
+        })->addColumn('country', function ($warehouse) {
+            return country::where('id', $warehouse->country_id)->pluck('name')->first();
         })->make(true);
     }
 
@@ -61,6 +66,7 @@ class WarehouseController extends Controller
         $output = array(
             'name' => $unit->name,
             'phone' => $unit->phone,
+            'country' => $unit->country_id,
             'email' => $unit->email,
             'address' => $unit->address,
             'id' => $unit->id
@@ -75,8 +81,15 @@ class WarehouseController extends Controller
         $insert->phone = $request->phone;
         $insert->email = $request->email;
         $insert->address = $request->address;
+        $insert->country_id = $request->country;
         $insert->save();
         echo 1;
+    }
+
+    public function AllWarehousesListSelect(Request $request)
+    {
+        $subcategory = warehouse::where('Company_id',Session('companyId'))->get();
+        echo json_encode($subcategory);
     }
 
 }

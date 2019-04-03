@@ -31,6 +31,7 @@ Route::group(['middleware' => 'CheckLogin'], function () {
 
     Route::post('/subcategory-select','ProductController@SubcategorySelect');
 
+    Route::post('/country_list_select','GlobalController@CountryListSelect')->name('country.list.select');
     Route::post('/currency-country-id','GlobalController@Currency');
 
     Route::get('/tracking','TrackingController@Tracking');
@@ -106,7 +107,11 @@ Route::group(['middleware' => 'CheckLogin'], function () {
     Route::get('/delete-warehouses','WarehouseController@DeleteWarehouses')->name('delete.warehouses');
     Route::get('/view-edit-warehouses','WarehouseController@ViewEditWarehouses')->name('view.edit.warehouses');
     Route::post('/update-warehouses','WarehouseController@UpdateWarehouses')->name('update.warehouses');
+    Route::post('/all-warehouses-list-select','WarehouseController@AllWarehousesListSelect')->name('all.warehouses.list.select');
 
+    Route::get('/purchase-requisition','PurchaseController@PurchaseRequisition')->name('purchase.requisition');
+    Route::post('/all-product-list-select','PurchaseController@AllProductListSelect')->name('all.product.list.select');
+    Route::post('/all-supplier-list-select','PurchaseController@AllSupplierListSelect')->name('all.supplier.list.select');
 
 });
 

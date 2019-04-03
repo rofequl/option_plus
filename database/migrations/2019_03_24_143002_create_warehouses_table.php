@@ -19,7 +19,8 @@ class CreateWarehousesTable extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('email');
-            $table->string('address');
+            $table->string('address',9999);
+            $table->string('country_id');
             $table->string('Company_id');
             $table->timestamps();
         });
