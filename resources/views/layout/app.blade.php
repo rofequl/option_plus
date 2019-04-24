@@ -35,8 +35,13 @@
 <div class="container-fluid">
     <div class="row">
 
-        @include('inc.header')
-        @yield('content')
+
+            @include('inc.header')
+
+            @yield('content')
+
+
+
 
     </div>
 </div>
@@ -64,6 +69,7 @@
 <script src="{{asset('scripts/main.f1367185.chunk.js')}}"></script>
 <script src="{{asset('scripts/app/app-blog-overview.1.1.0.js')}}"></script>
 <script src="{{asset('custom/script.js')}}"></script>
+
 
 </body>
 </html>
