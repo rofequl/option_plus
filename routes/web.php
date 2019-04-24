@@ -110,9 +110,13 @@ Route::group(['middleware' => 'CheckLogin'], function () {
     Route::post('/all-warehouses-list-select','WarehouseController@AllWarehousesListSelect')->name('all.warehouses.list.select');
 
     Route::get('/purchase-requisition','PurchaseController@PurchaseRequisition')->name('purchase.requisition');
+    Route::get('/view-purchase-requisition','PurchaseController@ViewPurchaseRequisition')->name('view.purchase.requisition');
     Route::post('/all-product-list-select','PurchaseController@AllProductListSelect')->name('all.product.list.select');
+    Route::post('/all-product-price-list-select','PurchaseController@AllProductPriceListSelect')->name('all.product.price.list.select');
     Route::post('/all-supplier-list-select','PurchaseController@AllSupplierListSelect')->name('all.supplier.list.select');
+    Route::post('/add-purchase-requisition','PurchaseController@AddPurchaseRequisition')->name('add.purchase.requisition');
 
+    Route::get('/purchase-invoice','PurchaseController@PurchaseInvoice')->name('purchase.invoice');
 });
 
 

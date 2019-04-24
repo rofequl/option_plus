@@ -10,33 +10,21 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="{{route('category')}}">
+                <a class="nav-link " href="{{route('purchase.requisition')}}">
                     <i class="material-icons">vertical_split</i>
-                    <span>Category</span>
+                    <span>Purchase Requisition</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="{{route('subcategory')}}">
+                <a class="nav-link " href="{{route('purchase.invoice')}}">
                     <i class="material-icons">note_add</i>
-                    <span>Subcategory</span>
+                    <span>Purchase Order</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="{{route('unit')}}">
+                <a class="nav-link " href="{{route('purchase.invoice')}}">
                     <i class="material-icons">note_add</i>
-                    <span>Unit</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="{{route('product')}}">
-                    <i class="material-icons">view_module</i>
-                    <span>Product</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="{{route('PriceList')}}">
-                    <i class="material-icons">view_module</i>
-                    <span>Price List</span>
+                    <span>Purchase Invoice</span>
                 </a>
             </li>
         </ul>
