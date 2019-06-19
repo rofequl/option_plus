@@ -21,24 +21,24 @@
                     <div class="card-body">
                         <form class="form-inline">
                             <div class="form-group mx-sm-3 mb-2">
-                                <select class="selectpicker border rounded float-right" id="InputCategoryId">
-                                    <option value="">Choose No.</option>
-                                    <option value="">Purchase Requisition</option>
-                                    <option value="">Purchase Order</option>
+                                <select class="selectpicker border rounded float-right" id="InputPurchaseType">
+                                    <option value="0">Choose No.</option>
+                                    <option value="1">Purchase Requisition</option>
+                                    <option value="2">Purchase Order</option>
                                 </select>
                             </div>
-                            <div class="form-group mx-sm-3 mb-2">
-                                <label for="inputCategory" class="sr-only">Category Name</label>
-                                <input type="text" class="form-control" id="inputSubcategory">
-                                <input type="text" class="form-control d-none" id="inputSubcategoryId">
+                            <div id="InputPurchaseRequisition" class="form-group mx-sm-3 mb-2" style="display: none">
+                                <select class="selectpicker border rounded float-right" id="InputRequisitionType">
+                                    <option value="0">Choose Requisition</option>
+                                </select>
                             </div>
-                            <div class="form-group mx-sm-3 mb-2">
-                                <label for="inputCategory" class="sr-only">Category Name</label>
-                                <input type="text" class="form-control" id="inputSubcategory">
-                                <input type="text" class="form-control d-none" id="inputSubcategoryId">
+                            <div id="InputPurchaseOrder" class="form-group mx-sm-3 mb-2" style="display: none">
+                                <select class="selectpicker border rounded float-right" id="InputOrderType">
+                                    <option value="0">Choose Order</option>
+                                </select>
                             </div>
                             <div class="inputButton">
-                                <button type="button" class="btn btn-primary mb-2 UpdateCategory">Update</button>
+                                <button type="button" class="btn btn-primary mb-2 AddPurchaseInvoice">Save</button>
                             </div>
                             <button type="button" class="btn btn-success mx-3 mb-2 closer">Close</button>
                         </form>
@@ -49,15 +49,19 @@
                 <div class="col">
                     <div class="card card-small mb-4">
                         <div class="card-header border-bottom">
-                            <button class="btn btn-primary float-right add"><i class="fa-1x fas fa-plus"></i> Add Invoice
+                            <button class="btn btn-primary float-right add"><i class="fa-1x fas fa-plus"></i> Add
+                                Invoice
                             </button>
                         </div>
                         <div class="card-body p-0 text-center ReactTable">
                             <table class="table mb-0 rt-table">
                                 <thead class="bg-light">
                                 <tr>
-                                    <th scope="col" class="border-0">id</th>
-                                    <th scope="col" class="border-0">Name</th>
+                                    <th scope="col" class="border-0">Sl.</th>
+                                    <th scope="col" class="border-0">Invoice No</th>
+                                    <th scope="col" class="border-0">Supplier Name</th>
+                                    <th scope="col" class="border-0">Warehouse</th>
+                                    <th scope="col" class="border-0">Total Amount</th>
                                     <th scope="col" class="border-0">Date</th>
                                     <th scope="col" class="border-0">Action</th>
                                 </tr>
@@ -75,75 +79,92 @@
 
         $(document).ready(function () {
 
-
-
-
+            $('#InputPurchaseType').change(function () {
+                let id = $(this).val();
+                if (id==1){
+                    $.ajax({
+                        url: "{{ url('requisition-select') }}",
+                        type: 'post',
+                        data: {_token: CSRF_TOKEN, id: id},
+                        dataType: 'json',
+                        success: function (data) {
+                            data.forEach(function (element) {
+                                $('#InputRequisitionType').html('');
+                                $('#InputRequisitionType').append('<option value="" hidden selected disabled>Please select</option>');
+                                $('#InputRequisitionType').append($('<option>', {value: element.id, text: element.requisition_no}));
+                            });
+                            $('#InputRequisitionType').selectpicker('refresh');
+                        }
+                    });
+                    $('#InputPurchaseRequisition').show();
+                    $('#InputPurchaseOrder').hide();
+                }else if (id==2){
+                    $.ajax({
+                        url: "{{ url('order-select') }}",
+                        type: 'post',
+                        data: {_token: CSRF_TOKEN, id: id},
+                        dataType: 'json',
+                        success: function (data) {
+                            data.forEach(function (element) {
+                                $('#InputOrderType').html('');
+                                $('#InputOrderType').append('<option value="" hidden selected disabled>Please select</option>');
+                                $('#InputOrderType').append($('<option>', {value: element.id, text: element.order_no}));
+                            });
+                            $('#InputOrderType').selectpicker('refresh');
+                        }
+                    });
+                    $('#InputPurchaseOrder').show();
+                    $('#InputPurchaseRequisition').hide();
+                }else {
+                    $('#InputPurchaseRequisition').hide();
+                    $('#InputPurchaseOrder').hide();
+                }
+            });
 
 
             $(function () {
                 table.ajax.reload();
             });
             $(document).on('click', '.add', function () {
-                $('.inputheader').html('Add Unit');
-                $('#unitName').val('');
-                $('#inputUnitId').val('');
-                $('.inputButton').html('<div id="inputButton"><button type="button" class="btn btn-primary mb-2 addUnit">Save</button></div>\n');
+                $('#InputPurchaseType').val(0);
+                $('#InputRequisitionType').val(0);
+                $('.selectpicker').selectpicker('refresh');
+                $('#InputPurchaseRequisition').hide();
+                $('#InputPurchaseOrder').hide();
                 $('.collapse').collapse('show');
             });
             $(document).on('click', '.closer', function () {
                 $('.collapse').collapse('hide');
             });
-            $(document).on('click', '.addUnit', function () {
-                let name = $('#unitName').val();
-                if (name != '') {
+            $(document).on('click', '.AddPurchaseInvoice', function () {
+                let type = $('#InputPurchaseType').val(), value;
+                let requisition = $('#InputPurchaseType').val();
+                if (type==1 || type==2){
+                    if (type==1){value = 0;} else {value = 1;}
                     $.ajax({
-                        url: 'add-unit',
+                        url: '{{route('add.purchase.invoice')}}',
                         type: 'post',
-                        data: {_token: CSRF_TOKEN, name: name},
+                        data: {_token: CSRF_TOKEN, value: value, requisition: requisition},
                         success: function (response) {
-                            if (response == 1) {
-                                const Toast = Swal.mixin({
-                                    toast: true,
-                                    position: 'top-end',
-                                    showConfirmButton: false,
-                                    timer: 3000
-                                });
-
-                                Toast.fire({
-                                    type: 'success',
-                                    title: 'Unit Insert successfully'
-                                })
-                                table.ajax.reload();
-                            } else if (response == 0) {
-                                Swal.fire(
-                                    'This name already use',
-                                    '',
-                                    'warning'
-                                )
-                            } else {
-                                Swal.fire(
-                                    response,
-                                    'Something wrong, please contact administrator.',
-                                    'error'
-                                )
-                            }
-                            $('#inputPrice').val('');
-                            $('#ItemNameId').val('');
-                            $('.collapse').collapse('hide');
+                            console.log(response);
                         }
                     });
-                } else {
-                    Swal.fire('Input field empty')
+                }else {
+
                 }
+
             });
             let table = $('.table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ url('view-unit') }}",
+                ajax: "{{ route('view.purchase.invoice') }}",
                 columns: [
                     {data: 'id'},
-                    {data: 'name'},
-                    {data: 'created_at'},
+                    {data: 'invoice_no'},
+                    {data: 'supplier'},
+                    {data: 'warehouse'},
+                    {data: 'total'},
+                    {data: 'date'},
                     {data: 'action', orderable: false, searchable: false}
                 ]
             });

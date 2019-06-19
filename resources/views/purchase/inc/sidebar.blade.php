@@ -16,7 +16,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="{{route('purchase.invoice')}}">
+                <a class="nav-link " href="{{route('purchase.order')}}">
                     <i class="material-icons">note_add</i>
                     <span>Purchase Order</span>
                 </a>

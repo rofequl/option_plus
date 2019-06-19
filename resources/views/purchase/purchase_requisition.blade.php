@@ -48,7 +48,7 @@
                 <div class="col">
                     <div class="card card-small mb-4">
                         <div class="card-header border-bottom text-right">
-                            go back
+                            <i class="fas fa-hand-point-left"></i> Go back
                         </div>
                         <div class="card-body p-0 text-center">
                             <form method="post" id="upload_form" enctype="multipart/form-data">
@@ -272,6 +272,10 @@
                 })
             });
 
+            $(document).on('click', '.view', function () {
+                window.location.href = "{{route('view.purchase')}}";
+            });
+
         });
 
         $(document).on('keyup', '.ProductEdit', function () {
@@ -281,14 +285,14 @@
         });
 
         function RemovePurchaseRequisition() {
-            $('.NewPurchaseRequisition').hide();
-            $('.PurchaseRequisitionList').show();
+            $('.NewPurchaseRequisition').hide("slow");
+            $('.PurchaseRequisitionList').show("slow");
             table.ajax.reload();
         }
 
         function AddPurchaseRequisition() {
-            $('.PurchaseRequisitionList').hide();
-            $('.NewPurchaseRequisition').show();
+            $('.PurchaseRequisitionList').hide( "slow" );
+            $('.NewPurchaseRequisition').show("slow");
             AddSelectProduct('SelectProduct1');
             AddSelectsupplier('SelectSupplier');
             AddSelectCountry('SelectCountry');

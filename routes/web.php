@@ -117,6 +117,19 @@ Route::group(['middleware' => 'CheckLogin'], function () {
     Route::post('/add-purchase-requisition','PurchaseController@AddPurchaseRequisition')->name('add.purchase.requisition');
 
     Route::get('/purchase-invoice','PurchaseController@PurchaseInvoice')->name('purchase.invoice');
+    Route::post('/requisition-select','PurchaseController@RequisitionSelect');
+    Route::post('/order-select','PurchaseController@OrderSelect');
+    Route::post('/add-purchase-invoice','PurchaseController@AddPurchaseInvoice')->name('add.purchase.invoice');
+    Route::get('/view-purchase-invoice','PurchaseController@ViewPurchaseInvoice')->name('view.purchase.invoice');
+
+    Route::get('/purchase-order','PurchaseController@PurchaseOrder')->name('purchase.order');
+    Route::post('/add-purchase-order','PurchaseController@AddPurchaseOrder')->name('add.purchase.order');
+    Route::get('/view-purchase-order','PurchaseController@ViewPurchaseOrder')->name('view.purchase.order');
+
+    Route::get('/view-purchase','PurchaseController@ViewPurchase')->name('view.purchase');
+
+
+
 });
 
 
